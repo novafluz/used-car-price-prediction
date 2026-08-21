@@ -29,16 +29,7 @@ def preprocess_data(car_data, preprocessor=None):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2, random_state=67)
 
     # =========== Preprocess using Scaler and OneHot Encoder ===========
-    # show correlation of features
-    all_numeric_cols = numeric_cols + ['price']
-    FIG_PATH = './fig'
-    corr = car_data[all_numeric_cols].corr()
-    plt.figure(figsize=(12, 8))
-    sns.heatmap(corr, annot=True, cbar=True, cmap='Blues')
-    plt.title("Correlation of features")
-    plt.savefig(f'{FIG_PATH}/correlation')
-    plt.close()
-
+    
     preprocessor = ColumnTransformer(
         transformers=[
             ('num', StandardScaler(), numeric_cols),

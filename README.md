@@ -71,13 +71,13 @@ The models are evaluated on the test set using R², RMSE, and MAE.
 
 The performance of the three models on the test set is shown below:
 
-| Model             |         R² |          RMSE |          MAE |
-| ----------------- | ---------: | ------------: | -----------: |
-| Linear Regression |     0.7037 |     29,479.33 |    14,461.17 |
-| Random Forest     |     0.7426 |     27,476.76 |     9,992.22 |
-| XGBoost           | **0.8238** | **22,736.23** | **9,533.42** |
+| Model             |         R² |       RMSE |        MAE |
+| ----------------- | ---------: | ---------: | ---------: |
+| Linear Regression |     0.8440 |     0.3126 |     0.2265 |
+| Random Forest     |     0.8615 |     0.2946 |     0.2172 |
+| XGBoost           | **0.8909** | **0.2614** | **0.1914** |
 
-Among the three models, **XGBoost** achieved the best performance with an R² score of **0.8238**, an RMSE of **22,736.23**, and an MAE of **9,533.42** on the test set.
+Among the three models, **XGBoost** achieved the best performance with an R² score of **0.8909**, an RMSE of **0.2614**, and an MAE of **0.1914** on the test set.
 
 ## ⚙️ Installation
 
