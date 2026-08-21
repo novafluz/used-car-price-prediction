@@ -1,14 +1,15 @@
-from train import xgboost_model
-from preprocessing import preprocessor, numeric_cols, categorical_cols
+from train import train_models
 from loadData import load_data
-from feature_engineering import apply_features
-from data_cleaning import clean_data
+from preprocessing import preprocess_data
+import numpy as np
 import pandas as pd
 
 def app():
     print('=' * 65)
     print('Used Car Price Prediction')
     print('=' * 65)
+    models, preprocessor, _, _ = train_models()
+    xgboost_model = models['XGBoost']
     car_data = load_data()
     cols = car_data.columns.drop('price')
     sample_input = ['Toyota', 
@@ -31,13 +32,8 @@ def app():
     
     user_df['model_year'] = user_df['model_year'].astype(int)
     
-    # Apply data cleaning
-    user_df = clean_data(user_df)
+    X_user = preprocess_data(user_df, preprocessor)
     
-    # Apply feature engineering
-    user_df = apply_features(user_df)
-    
-    X_user = preprocessor.transform(user_df)
-    predicted_price = xgboost_model.predict(X_user)
+    predicted_price = np.expm1(xgboost_model.predict(X_user))
     
     print(f"Predicted Car Price: ${predicted_price[0]:.2f}")

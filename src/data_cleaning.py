@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 def simple_color(color):
     """Get main color from name"""
@@ -17,7 +18,28 @@ def simple_color(color):
 def clean_data(df):
     """Apply data cleaning to dataframe"""
     df = df.copy()
+
+    if 'price' in df:
+        # convert price and milage columns into numeric form
+        df['price'] = df['price'].str.replace('[$,]', '', regex = True).astype(float)
+
+        # remove outliers
+        df['price'] = np.log1p(df['price'])
+
+        q1 = df['price'].quantile(0.25)
+        q3 = df['price'].quantile(0.75)
+
+        iqr = q3 - q1 # interquartile range
+
+        lower = q1 - 1.5 * iqr
+        upper = q3 + 1.5 * iqr
+
+        df = df[(df['price'] >= lower) & (df['price'] <= upper)]
+
+    # Handle missing values
+    df.fillna({'fuel_type': 'Unknown', 'accident': 'None reported', 'clean_title': 'Unknown'}, inplace = True); # semicolon to prevent printing table
     
+    # Apply general data cleaning (milage, colors, accident)
     # Clean milage by removing commas and 'mi.'
     df['milage'] = df['milage'].str.replace('[, mi.]', '', regex=True).astype(float)
     

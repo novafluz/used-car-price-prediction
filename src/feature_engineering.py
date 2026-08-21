@@ -17,8 +17,8 @@ def apply_features(df):
     df['engine_cylinders'] = df['engine'].str.extract(r'(\d+)\s*Cylinder').astype(float)
     
     # Handle missing values
-    df['engine_hp'] = df['engine_hp'].fillna(0)
-    df['engine_size'] = df['engine_size'].fillna(0)
-    df['engine_cylinders'] = df['engine_cylinders'].fillna(0)
+    df['engine_hp'] = df['engine_hp'].fillna(df['engine_hp'].median())
+    df['engine_size'] = df['engine_size'].fillna(df['engine_size'].median())
+    df['engine_cylinders'] = df['engine_cylinders'].fillna(df['engine_cylinders'].median())
     
     return df
